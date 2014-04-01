@@ -1,0 +1,15 @@
+{
+  "name": "github.io",
+  "version": "0.0.0",
+  "description": "readme.md",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "Scott Gardner",
+  "license": "BSD",
+  "dependencies": {
+    "bower": "~1.2.8"
+  }
+}

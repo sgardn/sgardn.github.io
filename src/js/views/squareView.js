@@ -6,7 +6,8 @@ var SquareView = Backbone.View.extend({
 
 	template : 
 		"<div class ='<%= classes %>'>"+
-		"<span class='piece'><%= piece === 'none' ? '' : piece  %> <%= decay === 0 ? '' : decay  %></span>"+
+		// "<span class='piece'><%= piece === 'none' ? '' : piece  %> <%= decay === 0 ? '' : decay  %></span>"+
+		"<span class='piece'><%= piece === 'none' ? '' : piece  %> </span>"+
 		"</div>",
 
 	initialize : function(model, options){

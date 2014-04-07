@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title> Tic Tac Flow </title>
-<link rel="stylesheet" href="src/css/main.css">
-<link rel="shortcut icon" type="image/png" href="src/css/favicon.ico"/>
-
-<!-- <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>');</script> -->
-
+<title> Recursive Lists </title>
+<link rel="stylesheet" href="src/css/other.css">
+<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
 </head>
 <body>
 
@@ -14,25 +11,55 @@
 <script src="bower_components/underscore/underscore.js"></script>
 <script src="bower_components/backbone/backbone.js"></script>
 
-<div id= "board">
+
+<h1>What's your favorite moon?</h1>
+
+<div class="column">
+	<p>First</p>
+	<ul class="first"></ul>
+	<ul class="first-temp"></ul>
 </div>
-<br/>
 
-<div id = "status"/>
-<!-- el can't bind to id if it doesn't exist yet -->
+<div class="column">
+	<p>Second</p>
+	<ul class="second"></ul>
+	<ul class="second-temp"></ul>
+</div>
+	
+<div class="column">
+	<p>Third</p>
+	<ul class="third"></ul>
+	<ul class="third-temp"></ul>
+</div>
 
-<script src="src/js/models/square.js"></script>
-<script src="src/js/collections/grid.js"></script>
-<script src="src/js/views/squareView.js"></script>
-<script src="src/js/views/board.js"></script>
 
-<script>
+<script src="src/js/models/list.js"></script>
+<script src="src/js/views/listView.js"></script>
+<script type="text/javascript">
 
-var b = new Board({sideLength: 3});
-console.log("our Board is b");
-b.render();
+var mercury = {"text": "Mercury", "children": []};
+var venus = {"text": "Venus", "children": []};
+var earth = {"text": "Earth", "children": [{"text":"The Moon"}]};
+var mars = {"text": "Mars", "children": [{"text":"Deimos"}, {"text":"Phobos"}]};
+var jupiter = {"text": "Jupiter", "children": [
+{"text":"Ganymede"}, {"text":"Callisto"}, {"text":"Io"}, {"text":"Europa"}, {"text":"Himalia"}, {"text":"Amalthea"}, {"text":"Elara"}, {"text":"Thebe"}]};
+var saturn = {"text": "Saturn", "children": [{"text":"Titan"}, {"text":"Rhea"}, {"text":"Iapetus"}, {"text":"Tethys"}, {"text":"Enceladus"}, {"text":"Mimas"}, {"text":"Phoebe"}, {"text":"Hyperion"}]};
+var uranus = {"text": "Uranus", "children": [{"text":"Miranda"}, {"text":"Ariel"}, {"text":"Umbriel"}, {"text":"Titania"}, {"text":"Oberon"}]};
+var neptune = {"text": "Neptune", "children": [{"text":"Nereid"}, {"text":"Triton"}]};
+var pluto = {"text": "Pluto", "children": [{"text":"Charon"}]};
+
+
+var sun = {"text": "The Sun", "children": [mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto]};
+
+// List => ({text:value}, children:[List])
+var dest = [".first", ".second", ".third"];
+var t = new ListView(sun, dest);
+// TODO -- let's also hand in the destination elemnts for recursion however deep...
+t.render();
+
 
 </script>
+
 
 </body>
 </html>

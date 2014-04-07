@@ -1,8 +1,8 @@
 {
-  "name": "github.io",
+  "name": "lists",
   "version": "0.0.0",
-  "description": "readme.md",
-  "main": "index.html",
+  "description": "playing with nested lists",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,6 +10,6 @@
   "author": "Scott Gardner",
   "license": "BSD",
   "dependencies": {
-    "bower": "~1.2.8"
+    "bower": "~1.3.1"
   }
 }

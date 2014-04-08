@@ -1,6 +1,3 @@
 fun with recursive listing...
 
-to get started run :
-* npm install
-* bower install
-
+this is a clone of https://github.com/sgardn/solar-system with deps installed.

@@ -15,19 +15,19 @@
 <h1>What's your favorite moon?</h1>
 
 <div class="column">
-	<p>First</p>
+	<p>Star</p>
 	<ul class="first"></ul>
 	<ul class="first-temp"></ul>
 </div>
 
 <div class="column">
-	<p>Second</p>
+	<p>Planet</p>
 	<ul class="second"></ul>
 	<ul class="second-temp"></ul>
 </div>
 	
 <div class="column">
-	<p>Third</p>
+	<p>Moon</p>
 	<ul class="third"></ul>
 	<ul class="third-temp"></ul>
 </div>
@@ -54,9 +54,7 @@ var sun = {"text": "The Sun", "children": [mercury, venus, earth, mars, jupiter,
 // List => ({text:value}, children:[List])
 var dest = [".first", ".second", ".third"];
 var t = new ListView(sun, dest);
-// TODO -- let's also hand in the destination elemnts for recursion however deep...
 t.render();
-
 
 </script>
 

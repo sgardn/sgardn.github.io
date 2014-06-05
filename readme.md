@@ -1,3 +1,0 @@
-fun with recursive listing...
-
-this is a clone of https://github.com/sgardn/solar-system with deps installed.

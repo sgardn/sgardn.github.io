@@ -1,0 +1,30 @@
+{
+  "name": "sgardn.github.io",
+  "version": "0.0.0",
+  "description": "fun with angular",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sgardn/sgardn.github.io"
+  },
+  "keywords": [
+    "angular",
+    "grid"
+  ],
+  "author": "Scott Gardner",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sgardn/sgardn.github.io/issues"
+  },
+  "homepage": "https://github.com/sgardn/sgardn.github.io",
+  "dependencies": {
+    "body-parser": "^1.6.3",
+    "errorhandler": "^1.1.1",
+    "express": "^4.8.3",
+    "method-override": "^2.1.3"
+  }
+}

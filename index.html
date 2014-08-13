@@ -1,161 +1,127 @@
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Contact Grid</title>
+    <meta charset="UTF-8">
+    <title>Contact Grid</title>
 
-	<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-	<script src="http://code.angularjs.org/1.2.6/angular.js"></script>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="public/css/style.css">
 
-	<script src="js/controllers/mainCtrl.js"></script>
-	<script src="js/services/localStorage.js"></script>
+    <script src="http://code.angularjs.org/1.2.6/angular.js"></script>
 
-	<style>
-	.active{
-		color:green;
-	}
-
-	table,th,td{
-		border:1px solid black;
-		padding:8px;
-	}
-	table td {
-    	width: 40px;
-    	overflow: hidden;
-    	display: inline-block;
-    	white-space: nowrap;
-	}
-	tr.editing td{
-
-	}
-	i.fa.fa-save, i.fa.fa-undo, i.fa.fa-pencil-square-o, i.fa.fa-times{
-		cursor:pointer;
-		padding:5px;
-	}
-	.odd{
-		background-color:papayawhip;
-	}
-	.table-wrap{
-		width:100%;
-	}
-	.create-user{
-		padding:3px;
-		margin:10px;
-	}
-	div.pagination-wrap {
-		margin:12px;
-	}
-	.flip {
-		-webkit-transform:rotate(180deg);
-		-moz-transform:rotate(180deg);
-		-o-transform:rotate(180deg);
-		-ms-transform:rotate(180deg);
-		transform:rotate(180deg);
-	}
-	input {
-		width:160px;
-	}
-	input.ng-invalid.ng-dirty {
-	    /*background-color: #FA787E;*/
-	}
-
-  	input.ng-valid.ng-dirty {
-	    /*background-color: #78FA89;*/
-	}
-	.btn.btn-primary {
-		margin:8 25 13 8px;
-	}
-	</style>
+    <script src="public/js/controllers/mainCtrl.js"></script>
+    <script src="public/js/services/localStorage.js"></script>
+    <script src="public/js/directives/dirPagination.js"></script>
 
 </head>
 
 <body ng-app="contactGrid" ng-controller="MainCtrl">
-	<div class="container">
-		<h1>User list</h1>
-		<input type="text" placeholder="filter" ng-model="searchText">
-		<div class="pagination-wrap">
-			<button ng-disabled="currentPage == 0" ng-click="navigate(-1)">Previous</button>
-				Showing {{currentPage*pageSize+1}} - {{pageMax()}} of {{contacts.length}}
-			<button ng-disabled="currentPage >= contacts.length/pageSize - 1" ng-click="navigate(1)">Next</button>	
-		</div>
-		
-		<div class="table-wrap">
-			<table>
-				<tr>
-					<th><a href="" ng-click="updateSort('last_name')">Last Name</a><span class="pull-right" ng-show="predicate === 'last_name'" ng-class="{ 'flip' : reverse }" >V</span></th>
-					
-					<th><a href="" ng-click="updateSort('first_name')">First Name</a><span class="pull-right" ng-show="predicate === 'first_name'" ng-class="{ 'flip' : reverse }" >V</span></th>
-					
-					<th><a href="" ng-click="updateSort('age')">Age</a><span class="pull-right" ng-show="predicate === 'age'" ng-class="{ 'flip' : reverse }" >V</span></th>
+    <div class="container">
 
-					<th><a href="" ng-click="updateSort('email')">Email</a><span class="pull-right" ng-show="predicate === 'email'" ng-class="{ 'flip' : reverse }" >V</span></th>
-					
-					<th><a href="" ng-click="updateSort('created_on')">Created on</a><span class="pull-right" ng-show="predicate === 'created_on'" ng-class="{ 'flip' : reverse }" >V</span></th>
-					
-					<th><a href="" ng-click="updateSort('edited')">Last edited</a><span class="pull-right" ng-show="predicate === 'edited'" ng-class="{ 'flip' : reverse }" >V</span></th>
-					
-					<th><a href="" ng-click="updateSort('active')">Active</a><span class="pull-right" ng-show="predicate === 'active'" ng-class="{ 'flip' : reverse }" >V</span></th>
-				</tr>
-			
-				<tr>
-					<form name="userForm" ng-submit="submitForm()">
-						<td>
-							<input name="lastName" type="text" ng-model="newUser.last_name" required placeholder="Enter a last name">
-						</td>
-						<td>
-							<input name="firstName" type="text" ng-model="newUser.first_name" required placeholder="Enter a first name">
-						</td>
-						<td>
-							<input style="width:80px;" name="age" type="text" ng-model="newUser.age" placeholder="Age" ng-pattern="/^[0-9]+$/" required>
-						</td>
-						<!-- above ng-pattern doesn't seem to block form from being invalid... -->
-						<td>
-							<input type="email" name="email" placeholder="email@yourdomain.com" ng-model="newUser.email" required>
-						</td>
-						<td></td>
-						<td></td>
-						<td>
-							<input type="checkbox" style="width:20px;" name="active" ng-model="newUser.active"> Active
-						</td>
-						
-						<button class="btn btn-primary pull-right" ng-disabled="myForm.$invalid">Add new user</button>
-					</form>
-				</tr>
+        <div class="header">
+            <h1>Contact Grid</h1>
+            <div class="search pull-right">
+                <span style="font-size:18px;">Filter:</span>
+                <input type="text" placeholder="Search text..." ng-model="searchText">
+            </div>
+        </div>
 
-				<tr class="old-row" ng-repeat="contact in contacts | orderBy:predicate:reverse | filter:searchText | startFrom:currentPage*pageSize | limitTo:pageSize track by contact.id" ng-class-even="'even'" ng-class-odd="'odd'" ng-class="{'editing' : contact.being_edited }">
-					
-					<td ng-show="!contact.being_edited">{{contact.last_name}}</td>
-					<td ng-show="contact.being_edited">
-						<input type="text" ng-model="tempModel.last_name">
-					</td>
-					<td ng-show="!contact.being_edited">{{contact.first_name}}</td>
-					<td ng-show="contact.being_edited">
-						<input type="text" ng-model="tempModel.first_name">
-					</td>
-					<td ng-show="!contact.being_edited">{{contact.age}}</td>
-					<td ng-show="contact.being_edited">
-						<input type="text" style="width:80px" ng-model="tempModel.age">
-					</td>
-					<td ng-show="!contact.being_edited">{{contact.email}}</td>
-					<td ng-show="contact.being_edited">
-						<input type="text" ng-model="tempModel.email">
-					</td>
+        <div class="add-user-wrap">
+            <table>
+                <tr>
+                    <form name="userForm" ng-submit="submitForm()">
+                        <td>
+                            <input name="lastName" type="text" ng-model="newUser.last_name" required placeholder="Last name">
+                        </td>
+                        <td>
+                            <input name="firstName" type="text" ng-model="newUser.first_name" required placeholder="First name">
+                        </td>
+                        <td>
+                            <input style="width:80px;" name="age" type="text" ng-model="newUser.age" placeholder="Age" ng-pattern="/^[0-9]+$/" required>
+                        </td>
+                        <td>
+                            <input type="email" name="email" placeholder="Email" ng-model="newUser.email" required>
+                        </td>
+                        <td>
+                            <input type="checkbox" style="width:20px;" name="active" ng-model="newUser.active">Active
+                        </td>
+                        <td>
+                            <button class="btn btn-primary pull-right" ng-disabled="myForm.$invalid">Add a new user</button>
+                        </td>
+                    </form>
+                </tr>
+            </table>
 
-					<!-- created shouldn't be editable... -->
-					<td>{{contact.created_on | date:'medium'}}</td>
-					
-					<!-- last edited shouldn't be editable... -->
-					<td> {{contact.edited | date:'medium'}}</td>
+        </div>
 
-					<td>
-						<span ng-show="!contact.being_edited"><i ng-class="{'active' : contact.active }" class="fa fa-check"></i> <i class="fa fa-pencil-square-o" ng-click="edit(contact.id)"></i><i class="fa fa-times" ng-click="deleteUser(contact.id)"></i></span>
-						<span  ng-show="contact.being_edited"><input type="checkbox" style="width:20px;" ng-model="tempModel.active"> Active <i class="fa fa-save" ng-click="save(contact.id)"></i><i class="fa fa-undo" ng-click="revert()"></i></span>
-					</td>
-				</tr>
-			</table>
-		</div>
+        <div class="table-wrap">
+            <table>
 
-	    
-	</div>
+                <tr>
+                    <th style="width:137px;"><a href="" ng-click="updateSort('last_name')">Last Name</a>
+                        <span class="pull-right" ng-show="predicate === 'last_name'" ng-class="{ 'flip' : reverse }">V</span>
+                    </th>
+                    <th style="width:137px;"><a href="" ng-click="updateSort('first_name')">First Name</a>
+                        <span class="pull-right" ng-show="predicate === 'first_name'" ng-class="{ 'flip' : reverse }">V</span>
+                    </th>
+                    <th><a href="" ng-click="updateSort('age')">Age</a>
+                        <span class="pull-right" ng-show="predicate === 'age'" ng-class="{ 'flip' : reverse }">V</span>
+                    </th>
+                    <th style="width:258px;"><a href="" ng-click="updateSort('email')">Email</a>
+                        <span class="pull-right" ng-show="predicate === 'email'" ng-class="{ 'flip' : reverse }">V</span>
+                    </th>
+                    <th><a href="" ng-click="updateSort('created_on')">Created on</a>
+                        <span class="pull-right" ng-show="predicate === 'created_on'" ng-class="{ 'flip' : reverse }">V</span>
+                    </th>
+                    <th><a href="" ng-click="updateSort('edited')">Last edited</a>
+                        <span class="pull-right" ng-show="predicate === 'edited'" ng-class="{ 'flip' : reverse }">V</span>
+                    </th>
+                    <th><a href="" ng-click="updateSort('active')">Active</a>
+                        <span class="pull-right" ng-show="predicate === 'active'" ng-class="{ 'flip' : reverse }">V</span>
+                    </th>
+                </tr>
+
+                <tr dir-paginate="contact in contacts | orderBy:predicate:reverse | filter:searchText | itemsPerPage: pageSize track by contact.id" current-page="currentPage" ng-class-even="'even'" ng-class-odd="'odd'" ng-class="{'editing' : contact.being_edited }">
+                    <td ng-show="!contact.being_edited">{{contact.last_name}}</td>
+                    <td ng-show="contact.being_edited">
+                        <input type="text" ng-model="tempModel.last_name">
+                    </td>
+                    <td ng-show="!contact.being_edited">{{contact.first_name}}</td>
+                    <td ng-show="contact.being_edited">
+                        <input type="text" ng-model="tempModel.first_name">
+                    </td>
+                    <td ng-show="!contact.being_edited">{{contact.age}}</td>
+                    <td ng-show="contact.being_edited">
+                        <input type="text" style="width:80px" ng-model="tempModel.age">
+                    </td>
+                    <td ng-show="!contact.being_edited">{{contact.email}}</td>
+                    <td ng-show="contact.being_edited">
+                        <input type="text" ng-model="tempModel.email" style="width:210px;">
+                    </td>
+                    <td>{{contact.created_on | date:'medium'}}</td>
+                    <td>{{contact.edited | date:'medium'}}</td>
+                    <td>
+                        <span ng-show="!contact.being_edited">
+                            <i ng-class="{'active' : contact.active }" class="fa fa-check"></i> 
+                            <i class="fa fa-pencil-square-o" ng-click="edit(contact.id)"></i>
+                            <i class="fa fa-times" ng-click="deleteUser(contact.id)"></i>
+                        </span>
+                        <span ng-show="contact.being_edited">
+                            <i ng-model="tempModel.active" ng-class="{'active' : tempModel.active }" class="fa fa-check" ng-click="toggleActive(tempModel)"></i>
+                            <i class="fa fa-save" ng-click="save(contact.id)"></i>
+                            <i class="fa fa-undo" ng-click="revert()"></i>
+                        </span>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+
+        <div class="pagination-wrap">
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="templates/dirPagination.tpl.html"></dir-pagination-controls>
+        </div>
+
+    </div>
 </body>
+
 </html>

@@ -1,0 +1,65 @@
+.active {
+    color: green;
+}
+table, th, td {
+    border: 1px solid black;
+    padding: 8px;
+}
+table td {
+    width: 50px;
+    overflow: hidden;
+    display: inline-block;
+    white-space: nowrap;
+}
+table th {
+    width: 100px;
+}
+tr.editing td i.fa.fa-check {
+    cursor: pointer;
+}
+i.fa.fa-save, i.fa.fa-undo, i.fa.fa-pencil-square-o, i.fa.fa-times, i.fa.fa-check {
+    cursor: pointer;
+    padding: 5px;
+}
+.odd {
+    background-color: papayawhip;
+}
+.table-wrap {
+    width: 100%;
+}
+.add-user-wrap {
+    display: inline-block;
+    width: 100%;
+    margin: 20 0px;
+}
+.create-user {
+    padding: 3px;
+    margin: 10px;
+}
+div.pagination-wrap {
+    margin: 12px;
+}
+.flip {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+input {
+    width: 120px;
+}
+.btn.btn-primary {
+    margin: 3px;
+}
+div.header {
+    width: 100%;
+    border-bottom: solid 3px black;
+}
+div.header > h1 {
+    display: inline-block;
+    margin: 15px;
+}
+div.header > div {
+    margin: 20px;
+}

@@ -1,25 +1,15 @@
 .active {
     color: green;
 }
-table, th, td {
-    border: 1px solid black;
-    padding: 8px;
+.flip {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
 }
-table td {
-    width: 50px;
-    overflow: hidden;
-    display: inline-block;
-    white-space: nowrap;
-}
-table th {
-    width: 100px;
-}
-tr.editing td i.fa.fa-check {
-    cursor: pointer;
-}
-i.fa.fa-save, i.fa.fa-undo, i.fa.fa-pencil-square-o, i.fa.fa-times, i.fa.fa-check {
-    cursor: pointer;
-    padding: 5px;
+.btn.btn-primary {
+    margin: 3px;
 }
 .odd {
     background-color: papayawhip;
@@ -36,21 +26,40 @@ i.fa.fa-save, i.fa.fa-undo, i.fa.fa-pencil-square-o, i.fa.fa-times, i.fa.fa-chec
     padding: 3px;
     margin: 10px;
 }
+.wide-column{
+    width:137px;
+}
+.wider-column{
+    width:196px;
+}
+.double-wide-column{
+    width:258px;   
+}
+
+table th {
+    width: 100px;
+}
+table, th, td {
+    border: 1px solid black;
+    padding: 8px;
+}
+table td {
+    width:50px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+tr.editing td i.fa.fa-check {
+    cursor: pointer;
+}
+i.fa.fa-save, i.fa.fa-undo, i.fa.fa-pencil-square-o, i.fa.fa-times, i.fa.fa-check {
+    cursor: pointer;
+    padding: 5px;
+}
 div.pagination-wrap {
     margin: 12px;
 }
-.flip {
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    transform: rotate(180deg);
-}
 input {
     width: 120px;
-}
-.btn.btn-primary {
-    margin: 3px;
 }
 div.header {
     width: 100%;
